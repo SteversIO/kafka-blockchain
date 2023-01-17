@@ -1,0 +1,24 @@
+{
+  "name": "kafka-blockchain-connector",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "This project is a proof-of-concept (POC) to demonstrate how to use Kafka, blockchain and Kafka connectors  to stream blockchain data (blocks, transactions, and events) into Kafka.",
+  "main": "index.js",
+  "dependencies": {
+    "avsc": "^5.7.7",
+    "node-rdkafka": "^2.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.1",
+    "typescript": "^4.9.4"
+  },
+  "scripts": {
+    "start:producer": "node quickstart/producer/index.js",
+    "start:consumer": "node quickstart/consumer/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
