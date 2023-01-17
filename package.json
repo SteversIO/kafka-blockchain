@@ -6,6 +6,7 @@
   "main": "index.js",
   "dependencies": {
     "avsc": "^5.7.7",
+    "minimist": "^1.2.7",
     "node-rdkafka": "^2.14.0"
   },
   "devDependencies": {
@@ -16,7 +17,7 @@
   },
   "scripts": {
     "start:producer": "node quickstart/producer/index.js",
-    "start:consumer": "node quickstart/consumer/index.js",
+    "start:consumer": "node quickstart/consumer/index.js -n",
     "conf:producer": "node quickstart/confluent/producer.js ./basic-config.properties",
     "conf:consumer": "node quickstart/confluent/consumer.js ./basic-config.properties",
     "test": "echo \"Error: no test specified\" && exit 1"

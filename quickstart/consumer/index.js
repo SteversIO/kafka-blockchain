@@ -1,9 +1,16 @@
 import Kafka from 'node-rdkafka';
 import eventType from '../../eventType.js';
+import minimist from 'minimist';
+import { topic } from '../models.js';
 
 const brokers = ['localhost:9092'];
+
+const args = minimist(process.argv.slice(2));
+
+const consumerNumber = args['n'];
+
 const consumerConfig = {
-  'group.id': 'web3-blocks-group5',
+  'group.id': `web3-blocks-group${consumerNumber}`,
   'metadata.broker.list': brokers,
   'enable.auto.commit': false, // don't commit my offset
 };
@@ -18,16 +25,16 @@ const consumer = new Kafka.KafkaConsumer(consumerConfig, topicConfig);
 consumer.connect();
 
 consumer.on('ready', () => {
-  const topics = ['test', 'web3-blocks'];
+  const topics = [topic, 'web3-blocks'];
   consumer.subscribe(topics);
   consumer.consume();
 }).on('data', function(data) {
-  const topic = data.topic;
+  const dataTopic = data.topic;
   const timestamp = data.timestamp;
-  console.log(`Received message from topic ${topic} at ${new Date(timestamp).toUTCString()}, offset: ${data.offset}`);
-  if(topic == 'web3-blocks') {
+  console.log(`Received message from topic ${dataTopic} at ${new Date(timestamp).toUTCString()}, offset: ${data.offset}`);
+  if(dataTopic == 'web3-blocks') {
     processWeb3Blocks(data);
-  } else if(topic== 'test') {
+  } else if(dataTopic == topic) {
     processTestData(data);
   }
 });

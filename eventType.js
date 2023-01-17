@@ -1,15 +1,17 @@
 import avro from 'avsc';
 
+import { disciplines, skills } from './quickstart/models.js';
+
 export default avro.Type.forSchema({
   type: 'record',
   fields: [
     {
-      name: 'category',
-      type: { type: 'enum', symbols: ['DOG', 'CAT'] }
+      name: 'discipline',
+      type: { type: 'enum', symbols: disciplines }
     },
     {
-      name: 'noise',
-      type: 'string',
+      name: 'skill',
+      type: 'string'
     }
   ]
 });
