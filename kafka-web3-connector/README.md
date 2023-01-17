@@ -9,7 +9,6 @@ CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
 
 2. Upload the jar file to the `broker` service, in one of the target paths.
 ```\
-docker cp kafka-web3-connector/kafka-web3-connector-0.2.jar connect:/usr/share/java && \
 docker cp kafka-web3-connector/kafka-web3-connector-0.2.jar broker:/usr/share/java && \
 docker cp kafka-web3-connector/connect.standalone.config.properties broker:/tmp && \
 docker cp kafka-web3-connector/ganache.config.properties broker:/tmp

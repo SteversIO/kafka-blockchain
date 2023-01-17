@@ -1,10 +1,9 @@
 import Kafka from 'node-rdkafka';
 import eventType from '../../eventType.js';
-import blockEventType from '../../block.schema.js';
 
 const brokers = ['localhost:9092'];
 const consumerConfig = {
-  'group.id': 'web3-blocks-group1',
+  'group.id': 'web3-blocks-group5',
   'metadata.broker.list': brokers,
   'enable.auto.commit': false, // don't commit my offset
 };
@@ -19,11 +18,29 @@ const consumer = new Kafka.KafkaConsumer(consumerConfig, topicConfig);
 consumer.connect();
 
 consumer.on('ready', () => {
-  const topics = ['web3-blocks'];
-  console.log('consumer ready..')
+  const topics = ['test', 'web3-blocks'];
   consumer.subscribe(topics);
   consumer.consume();
 }).on('data', function(data) {
-  const value = data.value;
-  console.log(`received message: ${blockEventType.fromBuffer(value)}`);
+  const topic = data.topic;
+  const timestamp = data.timestamp;
+  console.log(`Received message from topic ${topic} at ${new Date(timestamp).toUTCString()}, offset: ${data.offset}`);
+  if(topic == 'web3-blocks') {
+    processWeb3Blocks(data);
+  } else if(topic== 'test') {
+    processTestData(data);
+  }
 });
+
+function processTestData(data) {
+  console.log(`test data is ${eventType.fromBuffer(data.value)}`);
+}
+
+function processWeb3Blocks(data) {
+  try {
+    const block = JSON.parse(data.value);
+    console.log(`Block ${block.number} of size ${block.size} contained ${block.transactions.length} transactions. Recorded at ${new Date(block.timestamp).toUTCString()}`);
+  } catch(error) {
+    // TODO: do something?
+  }
+}
