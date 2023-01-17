@@ -31,7 +31,7 @@ consumer.on('ready', () => {
 }).on('data', function(data) {
   const dataTopic = data.topic;
   const timestamp = data.timestamp;
-  console.log(`Received message from topic ${dataTopic} at ${new Date(timestamp).toUTCString()}, offset: ${data.offset}`);
+  console.log(`Received message from topic ${dataTopic} at ${new Date(timestamp).toTimeString()}, offset: ${data.offset}`);
   if(dataTopic == 'web3-blocks') {
     processWeb3Blocks(data);
   } else if(dataTopic == topic) {
@@ -40,13 +40,13 @@ consumer.on('ready', () => {
 });
 
 function processTestData(data) {
-  console.log(`test data is ${eventType.fromBuffer(data.value)}`);
+  console.log(`\t\ttest data is ${eventType.fromBuffer(data.value)}`);
 }
 
 function processWeb3Blocks(data) {
   try {
     const block = JSON.parse(data.value);
-    console.log(`Block ${block.number} of size ${block.size} contained ${block.transactions.length} transactions. Recorded at ${new Date(block.timestamp).toUTCString()}`);
+    console.log(`\t\tBlock ${block.number} of size ${block.size} contained ${block.transactions.length} transactions. Recorded at ${new Date(block.timestamp).toUTCString()}`);
   } catch(error) {
     // TODO: do something?
   }
