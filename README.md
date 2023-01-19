@@ -13,7 +13,7 @@ docker compose up -d
 docker compose ps
 ```
 
-### Tinkering with Kafka
+## Tinkering with Kafka
 ### Creating a topic
 Following examples from [here](https://developer.confluent.io/get-started/nodejs/#build-producer)
 
@@ -25,4 +25,20 @@ Following examples from [here](https://developer.confluent.io/get-started/nodejs
 To bring everything down:
 ```
 docker compose down
+```
+
+## Running the Kafka Web3 Connector
+Copy all scripts to `broker` service (Kafka container)
+```
+docker cp kafka-web3-connector/kafka-web3-connector-0.2.jar broker:/usr/share/java && \
+docker cp kafka-web3-connector/connect.standalone.config.properties broker:/tmp && \
+docker cp kafka-web3-connector/ganache.config.properties broker:/tmp
+```
+
+Connect to the container & run the Kafka web3 connector
+```
+docker exec -it broker bash
+
+> whereis connect-standalone
+> /usr/bin/connect-standalone /tmp/connect.standalone.config.properties /tmp/ganache.config.properties
 ```
