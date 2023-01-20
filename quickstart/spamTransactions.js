@@ -4,7 +4,7 @@ import minimist from 'minimist';
 const args = minimist(process.argv.slice(2));
 const numberOfTransaction = args['n'];
 
-const ganacheMnemonic = 'shadow rocket sheriff diagram maximum soon pigeon soccer volcano sniff announce alone';
+const ganacheMnemonic = 'enroll alien any lava clip unlock debris exit flag narrow lawsuit gift';
 
 const providerConfig = {
     name: "ganache-dev",
