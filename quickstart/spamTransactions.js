@@ -1,10 +1,14 @@
 import { ethers } from 'ethers';
+import minimist from 'minimist';
 
-const ganacheMnemonic = 'cart quit item wisdom inject company nominee cross glory gasp dry until';
+const args = minimist(process.argv.slice(2));
+const numberOfTransaction = args['n'];
+
+const ganacheMnemonic = 'shadow rocket sheriff diagram maximum soon pigeon soccer volcano sniff announce alone';
 
 const providerConfig = {
     name: "ganache-dev",
-    rpc: 'http://127.0.0.1:7545',
+    rpc: 'http://127.0.0.1:8545',
     chainId: 1337,
 };
 
@@ -21,7 +25,7 @@ generateAccountsAndWallets().then((accounts) => {
 });
 
 async function createRandomTransactions(accounts) {
-  for(let i=0;i<100;i++) {
+  for(let i=0;i<numberOfTransaction;i++) {
     // Pick first wallet
     const choices = [...Array(accounts.length).keys()];
     const pickIndex = Math.floor(Math.random() * choices.length);

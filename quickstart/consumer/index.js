@@ -31,7 +31,7 @@ consumer.on('ready', () => {
 }).on('data', function(data) {
   const dataTopic = data.topic;
   const timestamp = data.timestamp;
-  console.log(`Received message from topic ${dataTopic} at ${new Date(timestamp).toTimeString()}, offset: ${data.offset}`);
+  console.log(`(${dataTopic},${data.offset}) @ ${new Date(timestamp).toLocaleDateString()}`);
   if(dataTopic == 'web3-blocks') {
     processWeb3Blocks(data);
   } else if(dataTopic == topic) {
