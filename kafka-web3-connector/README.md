@@ -10,7 +10,7 @@ docker cp kafka-web3-connector/ganache.config.properties broker:/tmp
 ```
 
 ## Running the custom Kafka connector
-Log into container to run the connector.
+Log into container to run the connector. The connector will now stream blockchain blocks (and transactions) in realtime.
 ```
 docker exec -it broker bash
 /bin/connect-standalone /tmp/connect.standalone.config.properties /tmp/ganache.config.properties

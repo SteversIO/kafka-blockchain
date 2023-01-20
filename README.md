@@ -40,6 +40,10 @@ npx ganache-cli
 4. Setup & Run one of the Kafka connectors. See individual README:
    - [kafka-web3-connector](/kafka-web3-connector/README.md) *(recommended)*
    - [kafka-ethereum-connector](/kafka-ethereum-connector/README.md)
+5. Once the connector is running, you can create blockchain transactions to watch the connector, in realtime, streaming blocks and transactions to Kafka.
+```
+npm run seed 5
+```
 
 &nbsp;
 ## Tinkering with Kafka

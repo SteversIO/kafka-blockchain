@@ -22,6 +22,7 @@
     "start:consumer": "node quickstart/consumer/index.js -n",
     "conf:producer": "node quickstart/confluent/producer.js ./basic-config.properties",
     "conf:consumer": "node quickstart/confluent/consumer.js ./basic-config.properties",
+    "seed": "node quickstart/spamTransactions.js -n",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
