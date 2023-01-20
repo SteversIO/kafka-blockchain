@@ -1,5 +1,6 @@
-# Kafka Web3 Connector
-[Github Repo](https://github.com/satran004/kafka-web3-connector)
+# Kafka Ethereum Connector
+[Github Repo](https://github.com/internetsystemsgroup/kafka-ethereum-connector/issues/new)
+
 
 ## Setting up the connector
 1. Identify target location to store the plugin (jar) by locating `CONNECT_PLUGIN_PATH` property in **docker-compose.yml** under `connect` service. 
@@ -16,9 +17,10 @@ to be uploading all of our artifacts (jar files) from the Kafka Ethereum Connect
 
 3. Upload the connector plugin, it's jar dependencies (in /plugins), and config files to the `broker` service.
 ```
-docker cp kafka-web3-connector/kafka-web3-connector-0.2.jar broker:/usr/share/java && \
-docker cp kafka-web3-connector/connect.standalone.config.properties broker:/tmp && \
-docker cp kafka-web3-connector/ganache.config.properties broker:/tmp
+docker cp kafka-ethereum-connector/kafka-ethereum-connector-1.0.jar broker:/usr/share/java && \
+docker cp kafka-ethereum-connector/plugins broker:/usr/share/java && \
+docker cp kafka-ethereum-connector/connect.standalone.config.properties broker:/tmp && \
+docker cp kafka-ethereum-connector/ganache.config.properties broker:/tmp
 ```
 
 ### 3B. Verify files exist
@@ -35,16 +37,15 @@ docker exec -it broker bash
 /bin/connect-standalone /tmp/connect.standalone.config.properties /tmp/ganache.config.properties
 ```
 
-
 ### Config Properties
 Regarding `ganache.config.properties`:
 - When using inside of a docker container, ensure that you use `host.docker.internal` for the hostname in **web3_rpc_url**.
 
-Regarding `docker-compose.yml`:
-- Ensure that you add `network_mode: "host"` to the **connect** service.
+
+## Building kafka-ethereum-connector from source
+https://github.com/internetsystemsgroup/kafka-ethereum-connector
+
+Build the project but skip the tests; they were failing locally; presumably because they require Infura or some other ??
 ```
-connect:
-    image: cnfldemos/cp-server-connect-datagen:0.5.3-7.1.0
-    hostname: connect
-    network_mode: "host"
+mvn clean -DskipTests=true package
 ```
